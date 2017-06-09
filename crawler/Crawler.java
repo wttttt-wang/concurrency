@@ -103,6 +103,7 @@ public class Crawler implements Runnable{
     }
 
     private void handling(String url) throws Exception{
+        logger.info("Running thread: " + Thread.currentThread().getName());
         if (url.endsWith(".mp3")) {
             downloadMp3(url);
         } else if (url.contains("json")){
@@ -128,7 +129,7 @@ public class Crawler implements Runnable{
         // 2. multi-thread, thread.run()
         for(int i = 0; i < 5; i++) {
             Crawler crawler = new Crawler();
-            new Thread(crawler).run();
+            new Thread(crawler, "thread" + i).start();
         }
 
     }
